@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ozmatemobile</string>
+    <string name="facebook_app_id">894479441670643</string>
+    <string name="facebook_client_token">0ce3c91919e507fd0c6ed1e47dfb6931</string>
 </resources>
