@@ -1,41 +1,53 @@
 import {
   faComment,
+  faHeart,
   faShareSquare,
-  faThumbsUp,
 } from '@fortawesome/free-regular-svg-icons';
 import {faEllipsisV} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {Avatar} from '@rneui/themed';
 import {useEffect} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import {Post} from '../types';
 
 interface PostCardProps {
   post: Post;
+  onPress: () => void;
 }
 
-export default function PostCard({post}: PostCardProps) {
+export default function PostCard({post, onPress}: PostCardProps) {
   useEffect(() => {}, []);
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.head}>
-          <Avatar size={32} rounded source={require('../../assets/logo.png')} />
-          <View>
-            <Text style={{fontWeight: 'bold'}}>{post.user.name}</Text>
-            <Text style={{fontSize: 12}}>
-              {'Perth'} - <Text>37m</Text>
-            </Text>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.head}>
+            <Avatar
+              size={36}
+              rounded
+              source={require('../../assets/logo.png')}
+            />
+            <View>
+              <Text style={{fontWeight: 'bold'}}>{post.user.name}</Text>
+              <Text style={{fontSize: 12}}>
+                {'Perth'} - <Text>37m</Text>
+              </Text>
+            </View>
           </View>
+          <FontAwesomeIcon icon={faEllipsisV} />
         </View>
-        <FontAwesomeIcon icon={faEllipsisV} />
+        <View style={styles.body}>
+          <Text>{post.content}</Text>
+        </View>
       </View>
-      <View style={styles.body}>
-        <Text>{post.content}</Text>
-      </View>
-      <View style={styles.footer}>
+      <LinearGradient
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 0}}
+        colors={['#d2b2d4', '#b2b7df']}
+        style={styles.footer}>
         <View style={styles.action}>
-          <FontAwesomeIcon icon={faThumbsUp} />
+          <FontAwesomeIcon icon={faHeart} />
           <Text>Like</Text>
         </View>
         <View style={styles.action}>
@@ -46,8 +58,8 @@ export default function PostCard({post}: PostCardProps) {
           <FontAwesomeIcon icon={faShareSquare} />
           <Text>Share</Text>
         </View>
-      </View>
-    </View>
+      </LinearGradient>
+    </TouchableOpacity>
   );
 }
 
@@ -55,9 +67,11 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     backgroundColor: '#FFFFFF',
-    borderRadius: 10,
-    padding: 10,
     marginVertical: 8,
+    padding: 16,
+    marginBottom: 0,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   header: {
     flex: 1,
@@ -68,22 +82,23 @@ const styles = StyleSheet.create({
   head: {
     flex: 1,
     flexDirection: 'row',
-    gap: 5,
+    gap: 12,
     alignItems: 'center',
   },
   body: {
     paddingTop: 5,
-    paddingBottom: 5,
   },
   footer: {
-    flex: 1,
+    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingTop: 5,
-    paddingBottom: 5,
+    padding: 16,
+    marginTop: 0,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
   action: {
-    flex: 1,
+    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,

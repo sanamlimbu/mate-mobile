@@ -33,6 +33,7 @@ export default function PostScreen({route, navigation}: PostScreenProps) {
       }
     })();
   }, []);
+
   return (
     <ScrollView style={{paddingHorizontal: 10}}>
       {isLoading ? (

@@ -1,4 +1,3 @@
-import {Button} from '@rneui/base';
 import {useEffect, useState} from 'react';
 import {FlatList, SafeAreaView} from 'react-native';
 import PostCard from '../components/PostCard';
@@ -190,18 +189,20 @@ export default function HomeScreen({navigation}: HomeScreenProps) {
 
   return (
     <SafeAreaView style={{padding: 20, backgroundColor: '#F9F9F9'}}>
-      <Button
-        onPress={() =>
-          navigation.navigate('Post', {
-            postId: 'f30c7b9b-c0cb-4d9b-b650-e4e34f31325e',
-          })
-        }>
-        Press me
-      </Button>
       <FlatList
         contentContainerStyle={{flexGrow: 1}}
         data={posts}
-        renderItem={({item}) => <PostCard key={item.id} post={item} />}
+        renderItem={({item}) => (
+          <PostCard
+            key={item.id}
+            post={item}
+            onPress={() =>
+              navigation.navigate('Post', {
+                postId: item.id,
+              })
+            }
+          />
+        )}
         keyExtractor={item => item.id}
         style={{gap: 10}}
         onEndReachedThreshold={0.2}
